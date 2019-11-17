@@ -1,0 +1,12 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for tag in tags %}
+        <div class="post">
+            <div class="date">
+                {{ tag.title }}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,35 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <form method="POST" action="" id="searchform"> {% csrf_token %}
+        <input class="searchfield" id="searchtitle" name="q" type="text" placeholder="Search..."/>
+        {% for tag in tags %}
+            <input type="checkbox" name="tag" value="{{ tag.title }}"> {{ tag.title }}
+        {% endfor %}
+        
+        <button type="submit" class="save btn btn-default">Search...</button>
+    </form>
+
+    {% if result_count.title__count  %}
+        <h1>Total Pencarian : {{ result_count.title__count }}</h1>
+    {% endif %}
+    
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                <p>published: {{ post.published_date }}</p>
+            </div>
+            <h2><a href="{% url 'post_detail' pk=post.pk%}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+        </div>
+    {% endfor %}
+    
+
+
+
+{% endblock %}
+
+
